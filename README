@@ -1,0 +1,4 @@
+vertebra-gem
+============
+
+Contains an actor and runner for managing gems on vertebra-enabled clusters.

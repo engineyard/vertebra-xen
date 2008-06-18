@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+require File.dirname(__FILE__) + '/../lib/vertebra-gem/runner'
+
+begin
+  Vertebra::VGem.start
+rescue DRb::DRbConnError
+  puts Vertebra::BaseRunner::NO_AGENT_ERROR
+end
