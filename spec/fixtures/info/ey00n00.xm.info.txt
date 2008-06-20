@@ -1,0 +1,26 @@
+host                   : ey00-00
+release                : 2.6.18-xen0
+version                : #10 SMP Sun Jul 22 05:12:59 PDT 2007
+machine                : x86_64
+nr_cpus                : 4
+nr_nodes               : 1
+sockets_per_node       : 2
+cores_per_socket       : 2
+threads_per_core       : 1
+cpu_mhz                : 1795
+hw_caps                : 178bfbff:e3d3fbff:00000000:00000010:00000001:00000000:00000003
+total_memory           : 16319
+free_memory            : 4773
+xen_major              : 3
+xen_minor              : 1
+xen_extra              : .0
+xen_caps               : xen-3.0-x86_64 xen-3.0-x86_32p 
+xen_scheduler          : credit
+xen_pagesize           : 4096
+platform_params        : virt_start=0xffff800000000000
+xen_changeset          : unavailable
+cc_compiler            : gcc version 4.1.2 (Gentoo 4.1.2)
+cc_compile_by          : root
+cc_compile_domain      : 
+cc_compile_date        : Thu Jun  7 21:43:41 PDT 2007
+xend_config_format     : 4

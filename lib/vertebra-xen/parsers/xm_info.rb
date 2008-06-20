@@ -1,3 +1,5 @@
+require 'yaml'
+
 module Xm
   class InfoOutput
     attr_reader :filename, :results
