@@ -9,28 +9,30 @@ rescue LoadError
 end
 
 module Vertebra
-  class VGem < BaseRunner
+  class VXen < BaseRunner
   
-    @@global_method_options = {:node => :optional, :cluster => :required, :only_nodes => :boolean, :slice => :optional}
+    @@global_method_options = {:node => :optional, :cluster => :optional, :only_nodes => :boolean, :slice => :optional}
       
     def self.all_method_options(opts = {})
       self.method_options(@@global_method_options.merge(opts))
     end
 
-    desc "list", "Get a list of gems"
-    all_method_options :filter => :optional
-    
-    def list(opts = {})
-      gems = broadcast('list', '/gem', opts)
-      gems.each { |host, gems| puts "\n#{host}";puts "---"; puts gems.is_a?(Array) ? gems.join("\n") : gems }
-    end
-
-    desc "install <gem_name>", "Install a gem"
+    desc "list", "Get a list of slices on a node"
     all_method_options
 
-    def install(gem_name, opts = {})
-      result = broadcast('install', '/gem', opts.merge(:name => gem_name))
-      puts result.inspect
+    def list(opts = {})
+      results = broadcast('list', '/xen', opts)
+      results.each do |host, values|
+        puts "\n#{host}\n#{values.to_yaml}"
+      end
+    end
+
+    desc "info", "Get output of xm info"
+    all_method_options
+
+    def info(opts = {})
+      results = broadcast('info', '/xen', opts)
+      puts results.inspect
     end
 
   end
