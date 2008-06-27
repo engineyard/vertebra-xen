@@ -25,12 +25,12 @@ module VertebraXen
     	  Xm::XenstoreLs.new(StringIO.new(`xenstore-ls`)).parse
       end
 
-      # takes a node name, i.e. ey04-s00010
+      # takes a slice name, i.e. ey04-s00010
     	def shutdown(options = {})
     	  `xm shutdown #{options['slice']}`
       end
 
-      # takes a node name, i.e. ey04-s00010
+      # takes a slice name, i.e. ey04-s00010
     	def create(options = {})
     	  `xm create /etc/xen/auto/#{options['slice']}.xen`
       end
