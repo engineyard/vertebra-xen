@@ -26,21 +26,16 @@ module VertebraXen
       end
 
       # takes a slice name, i.e. ey04-s00010
-<<<<<<< HEAD:lib/vertebra-xen/actor.rb
     	def shutdown_slice(options = {})
         execute("xm shutdown #{options['slice']}")
       end
 
-      # takes a slice name, i.e. ey04-s00010
-    	def create_slice(options = {})
-=======
     	def shutdown(options = {})
     	  `xm shutdown #{options['slice']}`
       end
 
       # takes a slice name, i.e. ey04-s00010
-    	def create(options = {})
->>>>>>> 9d6c737c65f6ca4479434ed1f0ae804bc23b31cb:lib/vertebra-xen/actor.rb
+    	def create_slice(options = {})
     	  `xm create /etc/xen/auto/#{options['slice']}.xen`
       end
 
