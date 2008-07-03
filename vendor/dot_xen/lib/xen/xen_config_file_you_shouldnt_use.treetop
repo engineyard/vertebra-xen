@@ -1,0 +1,53 @@
+grammar XenConfigFileYouShouldntUse
+  rule config_file
+    (comment / blank_line / assignment)* <ConfigFileNode>
+  end
+  
+  rule assignment
+    space_no_newline* lhs:variable space_no_newline* '=' space_no_newline* rhs:variable space* comment* <AssignmentNode> /
+    space_no_newline* lhs:variable space_no_newline* '=' space_no_newline* '[' space* rhs:array_list space* ']' space* comment* <ArrayAssignmentNode>
+  end
+  
+  rule array_list
+    space* value:(variable/comment) ','? space* remains:(space* var:array_list space* ','?)* <ArrayListNode> {
+      def variables(env = {})
+        [value.eval(env)] + remains.elements.map { |command_and_var|  command_and_var.var.eval(env) }
+      end
+    }
+  end
+  
+  rule variable
+    space_no_newline* value:number space* comment* <VariableNode> /
+    space_no_newline* value:string space* comment* <VariableNode>
+  end
+  
+  rule number
+    [0-9]+ <NumberNode>
+  end
+  
+  rule string
+    ([A-Za-z_-])+ <StringLiteralNode> /
+    '"' (!'"' . / '\"')* '"' <DoubleQuotedStringLiteralNode> /
+    "'" (!"'" .)* "'" <SingleQuotedStringLiteralNode>
+  end
+
+  rule comment
+    space_no_newline* [!\#] value:([^\n])* "\n" space* <CommentNode>
+  end
+
+  rule blank_line
+    "\n"
+  end
+
+  rule non_space_char
+    ![ \n] .
+  end
+
+  rule space_no_newline
+    [ \t]
+  end
+
+  rule space
+    space_no_newline / "\n"
+  end
+end

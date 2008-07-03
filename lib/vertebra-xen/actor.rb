@@ -10,31 +10,41 @@ module VertebraXen
       
       provides '/xen'
 
-      # no arguments
+      # should be able to list running or all slices
     	def list(options = {})
     	  Xm::ListOutput.new.parse(StringIO.new(`xm list`))
     	end
     	
-    	# no arguments
+    	# get slice info
     	def info(options = {})
     	  Xm::InfoOutput.new.parse(StringIO.new(`xm info`))
     	end
     	
-    	# no arguments
+    	# parse entire xenstore_ls output
     	def xenstore_ls(options = {})
     	  Xm::XenstoreLs.new(StringIO.new(`xenstore-ls`)).parse
       end
 
-      # takes a node name, i.e. ey04-s00010
-    	def shutdown(options = {})
-    	  `xm shutdown #{options['slice']}`
+      # takes a slice name, i.e. ey04-s00010
+    	def shutdown_slice(options = {})
+        execute("xm shutdown #{options['slice']}")
       end
 
-      # takes a node name, i.e. ey04-s00010
-    	def create(options = {})
+      # takes a slice name, i.e. ey04-s00010
+    	def create_slice(options = {})
     	  `xm create /etc/xen/auto/#{options['slice']}.xen`
       end
+
+      # takes a slice name, i.e. ey04-s00010
+    	def reboot_slice(options = {})
+    	  `xm reboot #{options['slice']}`
+      end
       
+      # takes a slice name, i.e. ey04-s00010      
+      def set_slice_ram(options = {})
+        # use parser to read file, validate ram setting against the maxmem and node, and write back, backup up the original
+      end
+
     end
   end
 end
