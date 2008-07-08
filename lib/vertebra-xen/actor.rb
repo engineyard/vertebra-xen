@@ -13,9 +13,9 @@ require File.dirname(__FILE__) + '/../../vendor/dot_xen/lib/xen/visitor'
 module VertebraXen
   class Actor < Thor
     
-    RESOURCES = '/xen'
+    RESOURCES = ['/xen']
 
-    def initialize(opts, *args)
+    def initialize(opts = {}, *args)
       @conf_parser = XenConfigFile::Parser.new
       super
     end
