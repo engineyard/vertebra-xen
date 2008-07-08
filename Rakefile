@@ -3,12 +3,12 @@ require 'rake/gempackagetask'
 require 'rubygems/specification'
 require 'date'
 
-GEM = "vertebra-gem"
+GEM = "vertebra-xen"
 GEM_VERSION = "0.0.1"
-AUTHOR = "Your Name"
-EMAIL = "Your Email"
-HOMEPAGE = "http://example.com"
-SUMMARY = "A gem that provides..."
+AUTHOR = "Joshua Sierles"
+EMAIL = "jsierles@engineyard.com"
+HOMEPAGE = "http://github.com/engineyard/vertebra-xen"
+SUMMARY = "Handle xen servers through vertebra"
 
 spec = Gem::Specification.new do |s|
   s.name = GEM
@@ -22,14 +22,13 @@ spec = Gem::Specification.new do |s|
   s.email = EMAIL
   s.homepage = HOMEPAGE
   
-  s.executables = %w(vgem)
+  s.executables = %w(vxen)
   
-  s.add_dependency "vertebra"
   s.add_dependency "thor"
   
   s.require_path = 'lib'
   s.autorequire = GEM
-  s.files = %w(LICENSE README Rakefile TODO) + Dir.glob("{lib,specs}/**/*")
+  s.files = %w(LICENSE README Rakefile TODO) + Dir.glob("{lib,specs,vendor}/**/*")
 end
 
 Rake::GemPackageTask.new(spec) do |pkg|

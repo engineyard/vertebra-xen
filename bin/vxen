@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+require File.dirname(__FILE__) + '/../lib/vertebra-xen/actor'
+require 'drb'
+
+begin
+  VertebraXen::Actor::Xen.start
+rescue DRb::DRbConnError
+  puts Vertebra::BaseRunner::NO_AGENT_ERROR
+end
