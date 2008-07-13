@@ -66,19 +66,39 @@ module VertebraXen
       parsed_conf = @conf_parser.parse(contents)
       conf_obj = parsed_conf.eval
       # take any options that match config file settings and update them
+      
       options.each do |k,v|
-        if conf_obj[k.to_sym]
-          conf_obj[k.to_sym].value = v
+        case k.to_sym
+        when :memory
+          
+          # TODO: throw exception/return error when there isn't enough memory left
+          
+          # set the xen file value
+          conf_obj[:memory].value = v
+          
+          if conf_obj[:maxmem]
+            shell "xm memset #{option}"
+          else
+            shutdown_slice('slice' => options['slice'])
+            create_slice('slice' => options['slice'])
+          end
+        else
+          if conf_obj[k.to_sym]
+            conf_obj[k.to_sym].value = v
+          end
         end
       end
   
+      # TODO: check for available memory!
+      
       # load visitor to write the updated config back
       @visitor = XenConfigFile::AST::Visitor::PrettyPrintVisitor.new
       new_conf_contents = conf_obj.accept(@visitor)
       File.open(conf_path, "w") do |f|
        f.write(new_conf_contents)
       end
-      # use parser to read file, validate ram setting against the maxmem and node, and write back, backup up the original
+
+      # TODO: If the max-mem directive exists, use mem-set to dynamically set the memory. Otherwise, the slice must be restarted (job for cavalcade?)
     end
     
     def backup_config(path)
