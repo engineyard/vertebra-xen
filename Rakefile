@@ -4,7 +4,7 @@ require 'rubygems/specification'
 require 'date'
 
 GEM = "vertebra-xen"
-GEM_VERSION = "0.0.2"
+GEM_VERSION = "0.0.1"
 AUTHOR = "Joshua Sierles"
 EMAIL = "jsierles@engineyard.com"
 HOMEPAGE = "http://github.com/engineyard/vertebra-xen"
@@ -45,11 +45,4 @@ task :make_spec do
   File.open("#{GEM}.gemspec", "w") do |file|
     file.puts spec.to_ruby
   end
-end
-
-desc "deploy to gem server"
-task :deploy do
-  puts "Copying gem to gem server..."
-  puts `eyscp pkg/#{GEM}-#{GEM_VERSION}.gem ey01-s00271:/data/gems/gems`
-  puts `eyssh ey01-s00271 'cd /data/gems; gem generate_index'`  
 end
