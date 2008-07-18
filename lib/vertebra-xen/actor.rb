@@ -38,17 +38,17 @@ module VertebraXen
     desc 'shutdown_slice', "Shutdown a specific slice"
     method_options :slice => :required
   	def shutdown_slice(options = {})
-      shell "xm shutdown #{options['slice']}"
+      spawn "xm shutdown", options['slice']
     end
 
     # takes a slice name, i.e. ey04-s00010
   	def create_slice(options = {})
-  	  shell "xm create /etc/xen/auto/#{options['slice']}.xen"
+  	  spawn "xm create", "/etc/xen/auto/#{options['slice']}.xen"
     end
 
     # takes a slice name, i.e. ey04-s00010
   	def reboot_slice(options = {})
-  	  shell "xm reboot #{options['slice']}"
+  	  spawn "xm reboot", options['slice']
     end
     
     # takes a slice name, i.e. ey04-s00010      
@@ -77,7 +77,7 @@ module VertebraXen
           conf_obj[:memory].value = v
           
           if conf_obj[:maxmem]
-            shell "xm memset #{option}"
+            spawn "xm mem-set", options['slice'], v
           else
             shutdown_slice('slice' => options['slice'])
             create_slice('slice' => options['slice'])
@@ -108,11 +108,6 @@ module VertebraXen
       # write backup of original file
       FileUtils.cp(path, backup_path)
     end
-    
-    def shell(cmd)
-      out = system cmd
-      {:status => $?, :output => out}
-    end
-    
+        
   end
 end
