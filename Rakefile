@@ -4,7 +4,7 @@ require 'rubygems/specification'
 require 'date'
 
 GEM = "vertebra-xen"
-GEM_VERSION = "0.0.1"
+GEM_VERSION = "0.1"
 AUTHOR = "Joshua Sierles"
 EMAIL = "jsierles@engineyard.com"
 HOMEPAGE = "http://github.com/engineyard/vertebra-xen"
