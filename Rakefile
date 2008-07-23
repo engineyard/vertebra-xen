@@ -4,7 +4,7 @@ require 'rubygems/specification'
 require 'date'
 
 GEM = "vertebra-xen"
-GEM_VERSION = "0.1"
+GEM_VERSION = "0.1.1"
 AUTHOR = "Joshua Sierles"
 EMAIL = "jsierles@engineyard.com"
 HOMEPAGE = "http://github.com/engineyard/vertebra-xen"
@@ -15,7 +15,7 @@ spec = Gem::Specification.new do |s|
   s.version = GEM_VERSION
   s.platform = Gem::Platform::RUBY
   s.has_rdoc = true
-  s.extra_rdoc_files = ["README", "LICENSE", 'TODO']
+  s.extra_rdoc_files = ["README", "LICENSE", 'TODO', "CHANGELOG"]
   s.summary = SUMMARY
   s.description = s.summary
   s.author = AUTHOR
@@ -28,7 +28,7 @@ spec = Gem::Specification.new do |s|
   
   s.require_path = 'lib'
   s.autorequire = GEM
-  s.files = %w(LICENSE README Rakefile TODO) + Dir.glob("{lib,specs,vendor}/**/*")
+  s.files = %w(LICENSE README Rakefile TODO CHANGELOG) + Dir.glob("{lib,specs,vendor}/**/*")
 end
 
 Rake::GemPackageTask.new(spec) do |pkg|
