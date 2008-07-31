@@ -25,6 +25,7 @@ spec = Gem::Specification.new do |s|
   s.executables = %w(vxen)
   
   s.add_dependency "thor"
+  s.add_dependency "treetop"
   
   s.require_path = 'lib'
   s.autorequire = GEM
