@@ -23,33 +23,33 @@ module VertebraXen
     end
     
     desc "list", "List running slices"
-  	def list
+  	def list(options = {})
   	  Xm::ListOutput.new.parse(StringIO.new(`xm list`))
   	end
   	
     desc "info", "Show xm info"
-  	def info
+  	def info(options = {})
   	  Xm::InfoOutput.new.parse(StringIO.new(`xm info`))
   	end
   	
     desc "xenstore", "Show xenstore-ls output"
-  	def xenstore_ls
+  	def xenstore_ls(options = {})
   	  Xm::XenstoreLs.new(StringIO.new(`xenstore-ls`)).parse
     end
 
     desc 'shutdown_slice', "Shutdown a specific slice"
     method_options :slice => :required
-  	def shutdown_slice
+  	def shutdown_slice(options = {})
       spawn "xm", "shutdown", options['slice']
     end
 
     # takes a slice name, i.e. ey04-s00010
-  	def create_slice
+  	def create_slice(options = {})
   	  spawn "xm", "create", "/etc/xen/auto/#{options['slice']}.xen"
     end
 
     # takes a slice name, i.e. ey04-s00010
-  	def reboot_slice
+  	def reboot_slice(options = {})
   	  spawn "xm", "reboot", options['slice']
     end
     
@@ -57,7 +57,7 @@ module VertebraXen
     desc 'set_slice_values', "Set memory or vcpu of a slice"
     method_options :memory => :optional, :vcpu => :optional, :slice => :required
     
-    def set_slice_values
+    def set_slice_values(options = {})
       xen_root = options['xen_root'] || "/etc/xen/auto"
       conf_path = "#{xen_root}/#{options['slice']}.xen"
       backup_config(conf_path)
@@ -103,7 +103,7 @@ module VertebraXen
       # TODO: If the max-mem directive exists, use mem-set to dynamically set the memory. Otherwise, the slice must be restarted (job for cavalcade?)
     end
     
-    def backup_config
+    def backup_config(path)
       base_path = File.dirname(path)
       filename = File.basename(path)
       backup_path = "#{base_path}/.#{filename}.bak"
