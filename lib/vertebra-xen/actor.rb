@@ -79,7 +79,7 @@ module VertebraXen
           conf_obj[:memory].value = v
           
           if conf_obj[:maxmem]
-            spawn "xm mem-set", options['slice'], v
+            spawn "xm", "mem-set", options['slice'], v
           else
             shutdown_slice('slice' => options['slice'])
             create_slice('slice' => options['slice'])

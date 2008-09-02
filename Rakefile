@@ -2,9 +2,11 @@ require 'rubygems'
 require 'rake/gempackagetask'
 require 'rubygems/specification'
 require 'date'
+require 'rake/testtask'
+require "spec/rake/spectask"
 
 GEM = "vertebra-xen"
-GEM_VERSION = "0.1.6"
+GEM_VERSION = "0.1.7"
 AUTHOR = "Joshua Sierles"
 EMAIL = "jsierles@engineyard.com"
 HOMEPAGE = "http://github.com/engineyard/vertebra-xen"
@@ -46,4 +48,10 @@ task :make_spec do
   File.open("#{GEM}.gemspec", "w") do |file|
     file.puts spec.to_ruby
   end
+end
+
+desc "Run specs"
+Spec::Rake::SpecTask.new("specs") do |t|
+  t.spec_opts = ["--format", "specdoc", "--colour"]
+  t.spec_files = FileList["spec/**/*_spec.rb"]
 end
