@@ -22,41 +22,49 @@ module VertebraXen
       super
     end
 
-    desc "list", "List running slices"
+    bind_op "/xen/list", :list
+    desc "/xen/list", "List running slices"
     def list(options = {})
       Xm::ListOutput.new.parse(StringIO.new(`xm list`))
     end
 
-    desc "info", "Show xm info"
+    bind_op "/xen/info", :info
+    desc "/xen/info", "Show xm info"
     def info(options = {})
       Xm::InfoOutput.new.parse(StringIO.new(`xm info`))
     end
 
-    desc "xenstore", "Show xenstore-ls output"
+    bind_op "/xen/store", :xenstore_ls
+    desc "/xen/store", "Show xenstore-ls output"
     def xenstore_ls(options = {})
       Xm::XenstoreLs.new(StringIO.new(`xenstore-ls`)).parse
     end
 
-    desc 'shutdown_slice', "Shutdown a specific slice"
+    bind_op "/slice/shutdown", :shutdown_slice
+    desc '/slice/shutdown', "Shutdown a specific slice"
     method_options :slice => :required
     def shutdown_slice(options = {})
       spawn "xm", "shutdown", options['slice']
     end
 
     # takes a slice name, i.e. ey04-s00010
+    bind_op "/slice/create", :create_slice
+    desc "/slice/create", "Create a slice"
     def create_slice(options = {})
       spawn "xm", "create", "/etc/xen/auto/#{options['slice']}.xen"
     end
 
     # takes a slice name, i.e. ey04-s00010
+    bind_op "/slice/reboot", :reboot_slice
+    desc "/slice/reboot", "Reboot a slice"
     def reboot_slice(options = {})
       spawn "xm", "reboot", options['slice']
     end
 
     # takes a slice name, i.e. ey04-s00010
-    desc 'set_slice_values', "Set memory or vcpu of a slice"
+    bind_op "/slice/set", :slice_set_values
+    desc '/slice/set', "Set memory or vcpu of a slice"
     method_options :memory => :optional, :vcpu => :optional, :slice => :required
-
     def set_slice_values(options = {})
       xen_root = options['xen_root'] || "/etc/xen/auto"
       conf_path = "#{xen_root}/#{options['slice']}.xen"
@@ -103,6 +111,8 @@ module VertebraXen
       # TODO: If the max-mem directive exists, use mem-set to dynamically set the memory. Otherwise, the slice must be restarted (job for cavalcade?)
     end
 
+    bind_op "/xen/backup/config", :backup_config
+    desc "/xen/backup/config", "Backup Xen configuration"
     def backup_config(path)
       base_path = File.dirname(path)
       filename = File.basename(path)
