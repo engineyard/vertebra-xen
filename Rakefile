@@ -6,7 +6,7 @@ require 'rake/testtask'
 require "spec/rake/spectask"
 
 GEM = "vertebra-xen"
-GEM_VERSION = "0.1.7"
+GEM_VERSION = "0.2.0"
 AUTHOR = "Joshua Sierles"
 EMAIL = "jsierles@engineyard.com"
 HOMEPAGE = "http://github.com/engineyard/vertebra-xen"

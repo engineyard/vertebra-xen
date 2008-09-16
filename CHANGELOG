@@ -1,3 +1,7 @@
+-- 0.2.0
+* Bind ops to resources.
+* Improve testing.
+
 -- 0.1.6
 * Update for new thor options and inherit once again from Vertebra::Actor
 
