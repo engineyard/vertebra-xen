@@ -7,9 +7,8 @@ require "spec/rake/spectask"
 
 GEM = "vertebra-xen"
 GEM_VERSION = "0.2.0"
-AUTHOR = "Joshua Sierles"
-EMAIL = "jsierles@engineyard.com"
-HOMEPAGE = "http://github.com/engineyard/vertebra-xen"
+AUTHOR = "Engine Yard, Inc."
+HOMEPAGE = "http://vertebra.engineyard.com"
 SUMMARY = "Handle xen servers through vertebra"
 
 spec = Gem::Specification.new do |s|
@@ -41,6 +40,11 @@ end
 desc "install the gem locally"
 task :install => [:package] do
   sh %{sudo gem install pkg/#{GEM}-#{GEM_VERSION}}
+end
+
+desc "uninstall the gem locally"
+task :uninstall => [:package] do
+  sh %{sudo gem uninstall #{GEM} -v #{GEM_VERSION} -I -x}
 end
 
 desc "create a gemspec file"
