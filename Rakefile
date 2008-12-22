@@ -8,6 +8,7 @@ require "spec/rake/spectask"
 GEM = "vertebra-xen"
 GEM_VERSION = "0.3.0"
 AUTHOR = "Engine Yard, Inc."
+EMAIL = "vertebra-dev@googlegroups.com"
 HOMEPAGE = "http://vertebra.engineyard.com"
 SUMMARY = "Handle xen servers through vertebra"
 
